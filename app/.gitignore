@@ -8,8 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
+# dist //not ignoring dist folder from npm build to ensure gh pages can see the assets
+# dist-ssr
 *.local
 
 # Editor directories and files
