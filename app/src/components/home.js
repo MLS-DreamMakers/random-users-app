@@ -1,6 +1,6 @@
 //functions for home page html components
 
-const home = () => {
+const header = () => {
   document.querySelector('#app').innerHTML = `
     <header>
       <nav>
@@ -9,15 +9,21 @@ const home = () => {
       </nav>
       <h1>Random Users Generator</h1>
     </header>
-    <main>
-      <div class="card">
-        <button id="refresh" type="button">refresh</button>
-      </div>
-      <p">Click refresh to generate a new user</p>
-    </main>
+    <div class="card">
+      <button id="refresh" type="button">refresh</button>
+    </div>
+    <p">Click refresh to generate a new user</p>
+  `;
+};
+
+const footer = () => {
+  document.querySelector('#app').innerHTML = `
     <footer>
     </footer>
   `;
 };
   
-export { home };
+export {
+  header,
+  footer,
+};
