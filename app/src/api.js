@@ -1,86 +1,72 @@
 // functions for handling API interactions, data fetching, etc.
-import { header} from './components/home';
+import { usersHome } from './components/home';
 
-const testRoute = async (url) => { // test API fetching
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log('data:', data);
-}
+const testRoute = async (url) => { //testing API fetching asynchronously using async/await
+  try {
+    const response = await fetch(url); //fetch data from a given URL
+    if (!response.ok) { //guard clause in case failure to fetch
+      throw new Error(`Failed to fetch data from ${url}. Status: ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json(); //parse response data as JSON
+    console.log('data:', data); //log the fetched data to console
+  } catch (error) {
+    console.error('Error fetching data:', error); //handle and log any errors that occur during fetching
+    throw error; //rethrow to propagate the error to the caller
+  }
+};
 
 const url1 = 'https://randomuser.me/api/';
 const url2 = 'https://randomuser.me/api/?inc=picture,gender,name,dob,location,email,phone,login';
 
-const routeTest = () => {
-  testRoute(url1);
-  testRoute(url2);
+const routeTest = async () => { //testing api routes asynchronously to avoid sequential wait time
+  await testRoute(url1);
+  await testRoute(url2);
 };
-  
-const getUsers = () => {
-    return fetch(url2)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const users = data.results; // Assuming 'results' contains an array of users
-            const parentElement = document.querySelector('#app');
-            const { newUserSpace } = header(parentElement);
-            renderUserInfo(newUserSpace, users);
-        })
-}
+
+const getUsers = async () => { //fetching user data from url2 and rendering user info in the DOM
+  try {
+    const response = await fetch(url2); //fetch user data from url2
+    if (!response.ok) { //guard clause for network response error
+      throw new Error(`Failed to fetch data from the server. Network response was not ok (${response.status} ${response.statusText}).`); //logging detailed info about the error to the console
+    }
+    const data = await response.json(); //parsing response data as JSON
+    const users = data.results; //extracting 'results' arr of users from fetched data
+    const parentElement = document.querySelector('#app'); //getting the DOM el with id 'app'
+    const { newUserSpace } = usersHome(parentElement); //getting newUserSpace from usersHome el component
+    renderUserInfo(newUserSpace, users); //render user info in newUserSpace
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+};
 
 const renderUserInfo = (newUserSpace, users) => {
-  newUserSpace.innerHTML = ''; // Clear previous content if any
+  newUserSpace.innerHTML = ''; //clear previous html content
+  const fragment = document.createDocumentFragment(); //creating a document fragment for efficient DOM manipulation when appending
 
   users.forEach(user => {
-      const li = document.createElement("li");
-      const div = document.createElement("div");
-      const img = document.createElement("img");
-      
-      img.setAttribute("id", `user-image`);
-      img.setAttribute("src", `${user.picture.large}`)
-      // sets image to user's image
+    const div = document.createElement("div"); //creating a div el for each user profile generated
+    const img = document.createElement("img");
+    const ul = document.createElement("ul"); //creating an unordered list to render user properties when fetched
 
-      const first = document.createElement("li");
-      first.setAttribute("id", "properties");
-      const last = document.createElement("li");
-      last.setAttribute("id", "properties");
-      const gender = document.createElement("li");
-      gender.setAttribute("id", "properties");
-      const age = document.createElement("li");
-      age.setAttribute("id", "properties");
-      const city = document.createElement("li");
-      city.setAttribute("id", "properties");
-      const state = document.createElement("li");
-      state.setAttribute("id", "properties");
+    ul.setAttribute("id", "properties"); //setting the id attribute of the ul element
+    img.setAttribute("id", `user-image`); //setting the img attribute id for each random user generated
+    img.setAttribute("src", user.picture.large); //setting the img src attribute to be a random user profile pic
 
-      first.textContent = `${user.name.first}`
-      last.textContent =  `${user.name.last}` 
-      gender.textContent = `${user.gender}`
-      age.textContent =`${user.dob.age}`  
-      city.textContent =`${user.location.city}` 
-      state.textContent = `${user.location.state}`;
-
-      // grabs all of the information from user
-      div.append(img);
-      newUserSpace.append( 
-        div,
-        first,
-        last,
-        age,
-        city,
-        state
-      )
-   })
-   
-      refresh.addEventListener('click', () => {
-        userContainer.append(newUserSpace);
-      })
+    const properties = ['first', 'last', 'gender', 'age', 'city', 'state']; //storing user api obj key names in an arr
+    properties.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
+      const li = document.createElement("li"); //creating a list item for each property
+      li.textContent = user.name[prop] || user.dob[prop] || user.location[prop] || ''; //setting text content based on user data availability from the api obj key/value pair
+      ul.appendChild(li); //appending list item to the unordered list
+    });
+    div.appendChild(img); //appending img el to div
+    div.appendChild(ul); //appending entire unordered list to div
+    fragment.appendChild(div); //appending entire div to doc fragment
+  });
+  newUserSpace.appendChild(fragment); //appending fragment to newUserSpace in one operation
+  
+  refresh.addEventListener('click', () => {
+    userContainer.append(newUserSpace);
+  })
 };
-
-
-
 
 export { routeTest, getUsers, renderUserInfo }

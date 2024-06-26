@@ -42,6 +42,47 @@ h1 {
   text-align: center;
 }
 
+#user-image {
+  border: 10px solid black;
+  border-radius: 25px;
+  margin: 30px;
+  width: 150px;
+}
+
+#refresh {
+  background-color: white;
+  color: black;
+}
+
+.new-user-info {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  height: 500px;
+  border-radius: 25px;
+}
+
+#properties {
+  margin: 10px;
+  
+  list-style-type: none;
+  font-size: 20px;
+}
+
+#user-container {
+  width: 100%;
+}
+
+#refresh-text {
+  color:white;
+  font-size: 20px;
+}
+
+.card { 
+  padding: 0px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -74,9 +115,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -93,41 +136,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
-/* Our Css */
-
-#user-image {
-  border: 10px solid black;
-  border-radius: 25px;
-  margin: 30px;
-  width: 150px;
-}
-
-#refresh {
-  background-color: white;
-  color: black;
-}
-.new-user-info {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  color: black;
-  height: 500px;
-  border-radius: 25px;
-}
-#properties {
-  margin: 10px;
-  display: inline-block;
-  list-style-type: none;
-  font-size: 20px;
-}
-#user-container {
-  width: 100%;
-}
-#refresh-text {
-  color:white;
-  font-size: 20px;
-}
-.card { 
-  padding: 0px;
 }
