@@ -65,16 +65,19 @@ const renderUserInfo = (newUserSpace, users) => {
 
       // grabs all of the information from user
       div.append(img);
-
-      newUserSpace.append(div);
       newUserSpace.append( 
+        div,
         first,
         last,
         age,
         city,
         state
-      );
-  });
+      )
+   })
+   
+      refresh.addEventListener('click', () => {
+        userContainer.append(newUserSpace);
+      })
 };
 
 
