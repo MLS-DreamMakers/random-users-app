@@ -1,5 +1,5 @@
 // functions for handling API interactions, data fetching, etc.
-
+import { header} from './components/home';
 
 const testRoute = async (url) => { // test API fetching
   const response = await fetch(url);
@@ -14,43 +14,70 @@ const routeTest = () => {
   testRoute(url1);
   testRoute(url2);
 };
-
-const checkResponseStatus = () => {
-  return fetch(url2)
-      .then((response) => {
-        console.log(response.status);
-        console.log(response.ok);
-        console.log(response.url);
-          // grabbing the reponse from fetch and returning each 
-          // property
-      })
-   }
   
 const getUsers = () => {
     return fetch(url2)
         .then(response => {
-            console.log(response.json());
-            // parses the body of the response
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
         })
         .then(data => {
-          const user = data.results[0]; // Assuming the response contains an array of results
-            console.log('User:', user);
-            console.log('Name:', user.name.first, user.name.last);
-            console.log('Gender:', user.gender);
-            console.log('Date of Birth:', user.dob.date);
-            console.log('Location:', user.location.city, user.location.country);
-            console.log('Email:', user.email);
-            console.log('Phone:', user.phone);
-            console.log('Login:', user.login.username);
+            const users = data.results; // Assuming 'results' contains an array of users
+            const parentElement = document.querySelector('#app');
+            const { newUserSpace } = header(parentElement);
+            renderUserInfo(newUserSpace, users);
         })
 }
 
 const renderUserInfo = (newUserSpace, users) => {
-  users.forEach((user) => {
-    const li = document.createElement("li");
-    newUserSpace.append(li);
-  newUserSpace.textContent = newUserInfo.gender;
-})
-}
+  newUserSpace.innerHTML = ''; // Clear previous content if any
 
-export { routeTest, checkResponseStatus, getUsers, renderUserInfo }
+  users.forEach(user => {
+      const li = document.createElement("li");
+      const div = document.createElement("div");
+      const img = document.createElement("img");
+      
+      img.setAttribute("id", `user-image`);
+      img.setAttribute("src", `${user.picture.large}`)
+      // sets image to user's image
+
+      const first = document.createElement("li");
+      first.setAttribute("id", "properties");
+      const last = document.createElement("li");
+      last.setAttribute("id", "properties");
+      const gender = document.createElement("li");
+      gender.setAttribute("id", "properties");
+      const age = document.createElement("li");
+      age.setAttribute("id", "properties");
+      const city = document.createElement("li");
+      city.setAttribute("id", "properties");
+      const state = document.createElement("li");
+      state.setAttribute("id", "properties");
+
+      first.textContent = `${user.name.first}`
+      last.textContent =  `${user.name.last}` 
+      gender.textContent = `${user.gender}`
+      age.textContent =`${user.dob.age}`  
+      city.textContent =`${user.location.city}` 
+      state.textContent = `${user.location.state}`;
+
+      // grabs all of the information from user
+      div.append(img);
+
+      newUserSpace.append(div);
+      newUserSpace.append( 
+        first,
+        last,
+        age,
+        city,
+        state
+      );
+  });
+};
+
+
+
+
+export { routeTest, getUsers, renderUserInfo }

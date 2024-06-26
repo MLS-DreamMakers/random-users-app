@@ -6,6 +6,13 @@ import viteLogo from '../assets/svg/vite.svg'
 
 const about = () => {
   document.querySelector('#app').innerHTML = `
+    <header>
+      <nav>
+        <a href="/" data-link>Home</a>
+        <a href="./" data-link>About</a>
+      </nav>
+      <h1>Random Users Generator</h1>
+    </header>
     <h2>About</h2>
     <p>Created with: </p>
     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">
