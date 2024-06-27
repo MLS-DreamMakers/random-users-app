@@ -61,13 +61,27 @@ const renderUserInfo = (newUserSpace, users) => {
     });
     div.appendChild(img); //appending img el to div
     div.appendChild(ul); //appending entire unordered list to div
+
+    newUserSpace.addEventListener('click', () => {
+      const properties2 = ['email', '']; //storing user api obj key names in an arr
+      properties2.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
+        const li = document.createElement("li"); //creating a list item for each property
+        li.textContent = user[prop] || user[prop] || user.location[prop]; //setting text content based on user data availability from the api obj key/value pair
+        const appDiv = document.querySelector('#app') //  selects app div so that the extra info is seperated
+        appDiv.appendChild(li); 
+      })
+      // Here you can define what happens when the image is clicked
+      // For example, you can generate more user info or perform any other action
+      console.log('User image clicked!');
+      console.log('User information:', users); // Example: Log user information to console
+      // You can extend this to display more user information or perform any desired action
+    });
     fragment.appendChild(div); //appending entire div to doc fragment
   });
   newUserSpace.appendChild(fragment); //appending fragment to newUserSpace in one operation
-  
-  refresh.addEventListener('click', () => {
-    userContainer.append(newUserSpace);
-  });
+
+
+
 };
 
 export { routeTest, getUsers, renderUserInfo }

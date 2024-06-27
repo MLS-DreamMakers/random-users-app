@@ -18,5 +18,6 @@ const profiles = (parentEl) => {
   
   return { newUserSpace, refresh, userContainer, refreshText };
 };
+console.log(document.querySelectorAll('img'));
 
 export { profiles };
