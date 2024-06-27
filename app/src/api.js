@@ -1,5 +1,5 @@
 // functions for handling API interactions, data fetching, etc.
-import { usersHome } from './components/home';
+import { profiles } from "./components/user-profiles";
 
 const testRoute = async (url) => { //testing API fetching asynchronously using async/await
   try {
@@ -32,7 +32,7 @@ const getUsers = async () => { //fetching user data from url2 and rendering user
     const data = await response.json(); //parsing response data as JSON
     const users = data.results; //extracting 'results' arr of users from fetched data
     const parentElement = document.querySelector('#app'); //getting the DOM el with id 'app'
-    const { newUserSpace } = usersHome(parentElement); //getting newUserSpace from usersHome el component
+    const { newUserSpace } = profiles(parentElement); //getting newUserSpace from profiles el component
     renderUserInfo(newUserSpace, users); //render user info in newUserSpace
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -48,6 +48,7 @@ const renderUserInfo = (newUserSpace, users) => {
     const img = document.createElement("img");
     const ul = document.createElement("ul"); //creating an unordered list to render user properties when fetched
 
+    // div.setAttribute("id", "properties"); //setting the id attribute of the ul element
     ul.setAttribute("id", "properties"); //setting the id attribute of the ul element
     img.setAttribute("id", `user-image`); //setting the img attribute id for each random user generated
     img.setAttribute("src", user.picture.large); //setting the img src attribute to be a random user profile pic
@@ -55,7 +56,7 @@ const renderUserInfo = (newUserSpace, users) => {
     const properties = ['first', 'last', 'gender', 'age', 'city', 'state']; //storing user api obj key names in an arr
     properties.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
       const li = document.createElement("li"); //creating a list item for each property
-      li.textContent = user.name[prop] || user.dob[prop] || user.location[prop] || ''; //setting text content based on user data availability from the api obj key/value pair
+      li.textContent = user.name[prop] || user.dob[prop] || user.location[prop]; //setting text content based on user data availability from the api obj key/value pair
       ul.appendChild(li); //appending list item to the unordered list
     });
     div.appendChild(img); //appending img el to div
@@ -66,7 +67,7 @@ const renderUserInfo = (newUserSpace, users) => {
   
   refresh.addEventListener('click', () => {
     userContainer.append(newUserSpace);
-  })
+  });
 };
 
 export { routeTest, getUsers, renderUserInfo }

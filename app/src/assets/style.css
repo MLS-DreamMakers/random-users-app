@@ -1,3 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: rgb(217, 0, 255); /* should be #242424; */
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -6,7 +13,9 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
+  display: flex;
+  flex-direction: column;
+  
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,90 +27,141 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
 
 body {
-  margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
+header {
+  background-color: rgb(213, 255, 215); /* separating for dev purposes */
+  width: 100%;
+  padding: 1rem;
+}
+
+nav {
+  background-color: rgb(31, 67, 32); /* separating for dev purposes */
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+nav a {
+  background-color: rgb(25, 255, 36); /* separating for dev purposes */
+  margin-right: 1rem;
+}
+
 h1 {
+  padding: 4rem;
+  text-align: center;
   font-size: 3.2em;
   line-height: 1.1;
 }
 
 #app {
+  background-color: rgb(188, 238, 147); /* separating for dev purposes */
+  display: flex;
+  flex-direction: column;
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 1rem;
+  padding: 1.5rem;
   text-align: center;
 }
 
+div {
+  background-color: rgb(0, 225, 255); /* separating for dev purposes */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.refresh-card { 
+  background-color: rgb(94, 76, 168); /* separating for dev purposes */
+}
+
+#refresh {
+  background-color: rgb(157, 112, 112); /* should be white */
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem;
+  color: black;
+}
+
+#refresh-text {
+  background-color: rgb(199, 209, 178); /* separating for dev purposes */
+  color: white;
+  font-size: 20px;
+}
+
 #user-image {
-  border: 10px solid black;
+  border: 1.5px solid rgb(245, 245, 245);
   border-radius: 25px;
   margin: 30px;
   width: 150px;
 }
 
-#refresh {
-  background-color: white;
-  color: black;
+#user-image:hover {
+  filter: drop-shadow(0 0 0.3rem #646cffaa);
 }
 
-.new-user-info {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
+.new-user-card {
+  margin: 0.5rem;
+  padding: 2rem;
+  background-color: rgb(255, 237, 237); /* should be white */
   color: black;
   height: 500px;
   border-radius: 25px;
 }
 
+ul {
+  background-color: rgb(185, 21, 21); /* separating for dev purposes */
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  background-color: rgb(41, 204, 112); /* separating for dev purposes */
+  margin: 3px 0;
+}
+
 #properties {
+  background-color: rgb(215, 96, 226); /* separating for dev purposes */
   margin: 10px;
-  
-  list-style-type: none;
+  padding: 15px;
   font-size: 20px;
 }
 
 #user-container {
+  background-color: rgb(42, 0, 252); /* separating for dev purposes */
   width: 100%;
 }
 
-#refresh-text {
-  color:white;
-  font-size: 20px;
-}
-
-.card { 
-  padding: 0px;
-}
-
-.logo {
+.tech-stack {
+  background-color: rgb(223, 48, 89); /* separating for dev purposes */
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
-.logo:hover {
+
+.tech-stack:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.vanilla:hover {
+
+.tech-stack.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 button {
@@ -128,7 +188,11 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: rgb(246, 255, 0); /* should be white */
+  }
+  * {
+    color: #213547;
+    background-color: #ff9100; /* should be white */
   }
   a:hover {
     color: #747bff;
