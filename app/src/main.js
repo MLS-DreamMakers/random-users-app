@@ -15,8 +15,8 @@ const main = async () => {
   // checkResponseStatus()
   await getUsers(); //fetching and rendering user info asynchronously
   // profiles();
-  // footer();
+  footer(appDiv);
 };
 
-about();
+// about();
 main(); //calling main app logic
