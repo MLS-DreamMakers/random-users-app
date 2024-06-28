@@ -1,4 +1,5 @@
 // functions for home page html components
+import siteLogo from '../assets/svg/site-logo.svg';
 import { profiles } from "./user-profiles";
 
 const app = document.querySelector('#app');
@@ -10,10 +11,19 @@ const header = (parentEl) => {
   const headerHTML = `
     <header>
       <nav>
-        <a href="/" data-link>Home</a>
-        <a id="about" href="/about" data-link>About</a>
+        <ul>
+          <li>
+            <a href="/" data-link="home-page">Home</a>
+          </li>
+          <li>
+            <a href="/about" data-link="about-page">About</a>
+          </li>
+        </ul>
       </nav>
-      <h1 id="site-title">Random Users Generator</h1>
+      <div id="site-logo">
+        <img src="${siteLogo}" class="logo site" alt="Site logo">
+      </div>
+        <h1 id="site-title">Random Users Generator</h1>
     </header>
   `;
   parentEl.insertAdjacentHTML('beforebegin', headerHTML);
@@ -27,7 +37,7 @@ const footer = (parentEl) => {
   if (!parentEl) { //guard clause if parentEl is not defined
     return console.error('Error: parent element is null or undefined.');
   }
-  const headerHTML = `
+  const footerHTML = `
     <footer>
       <p>Copyright @ 2024 All Rights Reserved</p>
       <p>Developed by
@@ -35,7 +45,7 @@ const footer = (parentEl) => {
       </p>
     </footer>
   `;
-  parentEl.insertAdjacentHTML('afterend', headerHTML);
+  parentEl.insertAdjacentHTML('afterend', footerHTML);
 };
   
 export { app, header, usersHome, footer };
