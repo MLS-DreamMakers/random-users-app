@@ -14,7 +14,7 @@ Random Users Generator is a SPA (single-page application) that fetches from an A
 
 [Project Requirements](https://github.com/MLS-DreamMakers/.github) | [Project Proposal](https://docs.google.com/document/d/1ndnrKH8Q5RyNzDFa5nhL4MI2r0jszhzmeS1Ap3S-oHE/edit) | [Organization](https://github.com/MLS-DreamMakers)
 
-Demo Video(TBA) | [Presentation Slides](https://docs.google.com/presentation/d/1AapP4u8urv2PVKc1s18LckHiI24dmQkyC1DyqUNqEhc/edit?usp=sharing)
+[Demo Video](https://youtu.be/2CySXiPMkM0) | [Presentation Slides](https://docs.google.com/presentation/d/1AapP4u8urv2PVKc1s18LckHiI24dmQkyC1DyqUNqEhc/edit?usp=sharing)
 
 [Repository](https://github.com/MLS-DreamMakers/random-users-app) | [Scrum Board](https://github.com/orgs/MLS-DreamMakers/projects/1)
 
