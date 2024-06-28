@@ -1,6 +1,8 @@
 // functions for home page html components
 import { profiles } from "./user-profiles";
 
+const app = document.querySelector('#app');
+
 const header = (parentEl) => {
   if (!parentEl) { //guard clause if parentEl is not defined
     return console.error('Error: parent element is null or undefined.');
@@ -36,4 +38,4 @@ const footer = (parentEl) => {
   parentEl.insertAdjacentHTML('afterend', headerHTML);
 };
   
-export { header, usersHome, footer };
+export { app, header, usersHome, footer };
