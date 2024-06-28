@@ -2,7 +2,7 @@
 import { app } from './components/home'
 import { profiles } from "./components/user-profiles";
 
-const testRoute = async (url) => { //testing API fetching asynchronously using async/await
+const testRoute = async (url) => { //testing data fetching from an API endpoint asynchronously using async/await;
   try {
     const response = await fetch(url); //fetch data from a given URL
     if (!response.ok) { //guard clause in case failure to fetch
@@ -24,82 +24,85 @@ const routeTest = async () => { //testing api routes asynchronously to avoid seq
   await testRoute(defaultUrl);
 };
 
-const renderUserInfo = (newUserSpace, users) => {
-  newUserSpace.innerHTML = ''; //clear previous html content
-  const fragment = document.createDocumentFragment(); //creating a document fragment for efficient DOM manipulation when appending
-
-  users.forEach(user => {
-    const div = document.createElement("div"); //creating a div el for each user profile generated
-    const img = document.createElement("img");
-    const ul = document.createElement("ul"); //creating an unordered list to render user properties when fetched
-
-    div.setAttribute("id", "user-container"); //setting the id attribute of the ul element
-    ul.setAttribute("id", "properties"); //setting the id attribute of the ul element
-    img.setAttribute("id", `user-image`); //setting the img attribute id for each random user generated
-    img.setAttribute("src", user.picture.large); //setting the img src attribute to be a random user profile pic
-
-    const properties = ['first', 'last', 'gender', 'age', 'city', 'state']; //storing user api obj key names in an arr
-    properties.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
-      const li = document.createElement("li"); //creating a list item for each property
-      li.textContent = user.name[prop] || user.dob[prop] || user.location[prop]; //setting text content based on user data availability from the api obj key/value pair
-      ul.appendChild(li); //appending list item to the unordered list
-    });
-    div.appendChild(img); //appending img el to div
-    div.appendChild(ul); //appending entire unordered list to div
-
-    const moreInfoButton = document.createElement("button"); //create button for more info
-    const moreInfoContainer = document.createElement("div"); //create container to hold more info from user
-    moreInfoContainer.setAttribute("id", "more-info-container");
-
-    const appDiv = document.querySelector('#app'); //  selects app div so that the extra info is seperated
+const createUserCard = (usersObj, parentFrag) => {
+  usersObj.forEach(user => {
+    const userCardDiv = document.createElement("div"); //creating a div el for each user profile generated
+    userCardDiv.className = "user-card"; //setting the id attribute of the ul element
     
-    appDiv.append(moreInfoContainer);
+    const img = document.createElement("img");
+    img.id = "user-image"; //setting the img attribute id for each random user generated
+    img.src = user.picture.large; //setting the img src attribute to be a random user profile pic
 
-    moreInfoContainer.append(moreInfoButton); // appends more info button to appDiv
-    moreInfoButton.style.margin = "20px" // styled through javascript
-    moreInfoButton.setAttribute("id", "more-info-button"); //setting attribute  of moreInfoButton
-    moreInfoButton.textContent = `Press for more content` // setting text content of button
+    const ul = document.createElement("ul"); //creating an unordered list to render user properties when fetched
+    ul.className = "properties"; //setting the id attribute of the ul element
 
+    const userCardProperties = [ //more readable- accessing each random user's api obj property values
+      user.name.first,
+      user.name.last,
+      user.gender,
+      user.dob.age,
+      user.location.city,
+      user.location.state
+    ]
+    userCardProperties.forEach(prop => { //iterating through properties arr to access each random user profiles properties
+      const li = document.createElement("li");
+      li.textContent = prop;
+      ul.appendChild(li); //appending list item to the unordered list
+    })
+    userCardDiv.append(img, ul); //appending img el to div
+    parentFrag.appendChild(userCardDiv); //appending entire div to doc fragment
+  })
+};
 
-    moreInfoButton.addEventListener('click', () => { // click event on more info button
+const createDropdownCard = (usersObj, parentFrag) => {
+  usersObj.forEach(user => {
+    const dropdownButton = document.createElement("button"); //create button for more info
+    dropdownButton.id = "dropdown-button"; //setting attribute  of moreInfoButton
+    dropdownButton.textContent = `Press for more content`; // setting text content of button
 
-        moreInfoButton.remove(); // removes button upon click
-        console.log('Button has been clicked!'); // logging to the console as test
-        const properties2 = ['email', 'phone']; //storing user api obj key names in an arr
+    const dropdownContainer = document.createElement("div"); //create container to hold more info from user
+    dropdownContainer.className = "dropdown-container";
 
-        properties2.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
-            const li = document.createElement("li"); //creating a list item for other properties
-            li.setAttribute("id", "more-properties") //setting attribute for both elements to be selected properly
-            li.textContent = user[prop] || user[prop]; //setting text content based on user data availability from the api obj key/value pair
-            moreInfoContainer.appendChild(li); // appends each of li to appDiv
+    dropdownContainer.append(dropdownButton); // appends more info button to appDiv
+
+    dropdownButton.addEventListener('click', () => { // click event on more info button
+      dropdownButton.remove(); // removes button upon click
+      
+      const ul = document.createElement("ul"); //creating an unordered list to render user properties when fetched
+      ul.className = "properties"; //setting the id attribute of the ul elemen
+      
+      const mainProperties = [user.email, user.phone]; //storing user api obj key names in an arr
+        mainProperties.forEach(prop => { //iterating through properties arr to access each random user profiles properties by the api obj key name
+          const li = document.createElement("li"); //creating a list item for other properties
+          li.textContent = prop; //setting text content based on user data availability from the api obj key/value pair
+          ul.appendChild(li); // appends each of li to ul
+          dropdownContainer.appendChild(ul); // appends each of li to dropdownContainer div
         })
-        // Here you can define what happens when the image is clicked
-        // For example, you can generate more user info or perform any other action
-
-        const div = document.createElement("div"); //creating a div for locaction, username and password
-        div.setAttribute("id", "address-username-container"); //sets attribute of div
-
-        const p = document.createElement("p"); //creating a p for different text content
-        const p2 = document.createElement("p"); //creating a p for different text content
-        const p3 = document.createElement("p"); // creating a p for every section of text 
-
-        p.textContent = `My address is ${user.location.street['number']} ${user.location.street['name']}`
-        p2.textContent = `If your need my login for your database needs:`
-        p3.textContent = ` Username: ${user.login['username']} Password: ${user.login['password']}`
-
-        div.append(p,p2,p3);
-        appDiv.appendChild(div); 
-
-        console.log('User information:', users); // Example: Log user information to console
-        // You can extend this to display more user information or perform any desired action
-      });
-    fragment.appendChild(div); //appending entire div to doc fragment
-
-
-  });
-
+        const personalInfoDiv = document.createElement("div"); //creating a div for locaction, username and password
+        personalInfoDiv.className = "address-username-container"; //sets attribute of div
   
-  newUserSpace.append(fragment); //appending fragment to newUserSpace in one operation
+        const addressP = document.createElement("p");
+        addressP.textContent = `My address is ${user.location.street.number} ${user.location.street.name}`
+  
+        const loginP = document.createElement("p");
+        loginP.textContent = `If you need my login info for your database needs:`
+  
+        const credentialsP = document.createElement("p");
+        credentialsP.textContent = `Username: ${user.login.username} Password: ${user.login.password}`
+
+        personalInfoDiv.append(addressP, loginP, credentialsP);
+        dropdownContainer.appendChild(personalInfoDiv); 
+      });
+    parentFrag.append(dropdownContainer); //appending fragment to given parentFrag arg in one operation
+  });
+};
+
+const renderProfileInfo = (parentContainer, usersObj) => {
+  parentContainer.innerHTML = ''; //clear previous html content
+  const fragment = document.createDocumentFragment(); //creating a document fragment for efficient DOM manipulation when appending
+  createUserCard(usersObj, fragment);
+  createDropdownCard(usersObj, fragment);
+  parentContainer.appendChild(fragment); //appending fragment to newProfiles in one operation
 };
 
 const getUsers = async () => { //fetching user data from url2 and rendering user info in the DOM
@@ -110,11 +113,16 @@ const getUsers = async () => { //fetching user data from url2 and rendering user
     }
     const data = await response.json(); //parsing response data as JSON
     const users = data.results; //extracting 'results' arr of users from fetched data
-    const { newUserSpace, refresh } = profiles(app); //getting newUserSpace from profiles el component
-    renderUserInfo(newUserSpace, users); //render user info in newUserSpace
+    
+    const { userContainer, refresh } = profiles(app); //getting userContainer from profiles el component
+    const getDropdownContainer = document.createElement("div"); //create container to hold more info from user
+    getDropdownContainer.className = "dropdown-container";
+
+    renderProfileInfo(userContainer, users); //render user info in userContainer    
+    renderProfileInfo(getDropdownContainer, users); //render user info in userContainer    
     
     refresh.addEventListener('click', async () => {
-      getUsers(); //rfresh user data on click, effectively getting a new user
+      await getUsers(); //refresh user data on click, effectively getting a new user
     })
   } catch (error) {
     console.error('Error fetching users:', error);

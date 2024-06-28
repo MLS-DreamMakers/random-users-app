@@ -6,14 +6,14 @@ const profiles = (parentEl) => {
       <button id="refresh" type="button">refresh</button>
       <p id ="refresh-text">Click to generate a new user</p>
     </div>
-    <div class="new-user-card">
+    <div class="new-user-container"
     </div>
   `;
-  const newUserSpace = parentEl.querySelector('.new-user-card');
+  const userContainer = parentEl.querySelector('.new-user-container');
   const refresh = parentEl.querySelector('#refresh');
   const refreshText = parentEl.querySelector('#refresh-text');
 
-  return { newUserSpace, refresh, refreshText };
+  return { userContainer, refresh, refreshText };
 };
 
 export { profiles };
