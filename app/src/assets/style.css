@@ -161,6 +161,52 @@ li {
   background-color: #646cff2c;
 }
 
+#more-info-container {
+  margin: 0.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  background-color: #646cff0e;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 18px rgba(39, 20, 211, 0.257);
+  backdrop-filter: blur(200px);
+}
+
+#more-info-button {
+  display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+    color: #646cff;
+    width: 250px;
+    height: 50px;  
+}
+#more-properties {
+  list-style: none;
+}
+
+#address-username-container {
+  margin: 0.5rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  background-color: #646cff0e;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 18px rgba(39, 20, 211, 0.257);
+  backdrop-filter: blur(200px);
+}
+
+p {
+  margin: 30px;
+}
+
 .tech-stack {
   /* background-color: rgb(223, 48, 89); /* separating for dev purposes */
   height: 6em;
