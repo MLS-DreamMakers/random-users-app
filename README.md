@@ -18,7 +18,7 @@ Random Users Generator is a SPA (single-page application) that fetches from an A
 
 [Repository](https://github.com/MLS-DreamMakers/random-users-app) | [Scrum Board](https://github.com/orgs/MLS-DreamMakers/projects/1)
 
-[Deployment Link](https://mls-dreammakers.github.io/about)
+[Deployment Link](https://mls-dreammakers.github.io/random-users-app/)
 
 ## Technologies
 
